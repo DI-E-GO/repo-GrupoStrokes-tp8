@@ -52,6 +52,11 @@
 		    <artifactId>bootstrap</artifactId>
 		    <version>5.0.0-beta3</version>
 		</dependency>
+		<!-- Hibernate Validator -->
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
