@@ -88,7 +88,7 @@ public class MainController {
 		ModelAndView modelView = new ModelAndView("ultimo-producto");
 		
 		  if (productoService.listaProductos().isEmpty()) { 
-			  Producto primero = new Producto(0, null, 0, null, 0);
+			  Producto primero = new Producto(0, null, 0, null, 0, null);
 			  productoService.addProducto(primero);
 		  }
 		 

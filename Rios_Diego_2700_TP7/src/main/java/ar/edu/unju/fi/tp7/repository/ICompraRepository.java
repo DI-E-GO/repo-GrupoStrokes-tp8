@@ -12,4 +12,9 @@ public interface ICompraRepository extends CrudRepository<Compra, Long> {
 	
 	public List<Compra> findAll();
 	Optional<Compra> findById(Long id);
+	//Funcion para buscar por nombre y monto
+	public List<Compra> findByProductoNombreAndTotalGreaterThanEqual(String nombre, double total);
+	//Funcion para buscar compras por monto
+	public List<Compra> findByTotalGreaterThanEqual(double total);
+	
 }

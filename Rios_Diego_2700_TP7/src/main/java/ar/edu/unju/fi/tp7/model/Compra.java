@@ -3,12 +3,15 @@
  */
 package ar.edu.unju.fi.tp7.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -25,8 +28,8 @@ public class Compra {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-	@ManyToOne
-	private Producto producto;
+	@OneToMany(mappedBy = "compra")
+	private List<Producto> productos = new ArrayList<Producto>();
 	@Column(name = "cantidad")
 	private int cantidad;
 	@Column(name = "total")
@@ -35,19 +38,21 @@ public class Compra {
 	public Compra() {
 		// TODO Auto-generated constructor stub
 	}
+	
 	/**
 	 * @param id
-	 * @param producto
+	 * @param productos
 	 * @param cantidad
 	 * @param total
 	 */
-	public Compra(Long id, Producto producto, int cantidad, double total) {
+	public Compra(Long id, List<Producto> productos, int cantidad, double total) {
 		super();
 		this.id = id;
-		this.producto = producto;
+		this.productos = productos;
 		this.cantidad = cantidad;
 		this.total = total;
 	}
+
 	/**
 	 * @return the id
 	 */
@@ -60,18 +65,7 @@ public class Compra {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	/**
-	 * @return the producto
-	 */
-	public Producto getProducto() {
-		return producto;
-	}
-	/**
-	 * @param producto the producto to set
-	 */
-	public void setProducto(Producto producto) {
-		this.producto = producto;
-	}
+	
 	/**
 	 * @return the cantidad
 	 */
@@ -96,9 +90,25 @@ public class Compra {
 	public void setTotal(double total) {
 		this.total = total;
 	}
+	
+	
+	/**
+	 * @return the productos
+	 */
+	public List<Producto> getProductos() {
+		return productos;
+	}
+
+	/**
+	 * @param productos the productos to set
+	 */
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
+
 	@Override
 	public String toString() {
-		return "Compra [id=" + id + ", producto=" + producto + ", cantidad=" + cantidad + ", total=" + total + "]";
+		return "Compra [id=" + id + ", producto=" + productos + ", cantidad=" + cantidad + ", total=" + total + "]";
 	}
 	
 }

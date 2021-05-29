@@ -16,6 +16,29 @@
 				</div>
 				<div class="card">
 				  <div class="card-header text-center bg-success mb-3">
+				    <h2>Busqueda de Compra</h2>
+				  </div>
+				  <div class="card-body">
+				    <form th:action="@{/compra/busqueda}" th:object="${compra}" th:method="GET">
+				    	   <div class="row g-3">
+							    <div class="col-md-4">
+							      <label for="nproducto">Nombre del Producto</label>
+							      <input type="text" class="form-control" id="nproducto" th:field="*{nombre}">
+							    </div>
+							    <div class="col-md-4">
+							      <label for="monto">Monto Superior a</label>
+							      <input type="number" class="form-control" id="monto" th:field="*{total}">
+							    </div>
+							   <div class="col-md-2">
+								   <button type="submit" class="btn btn-primary mt-4">Buscar</button>
+							   </div>
+							</div>
+				    </form>
+				  </div>
+				</div>
+				<br>
+				<div class="card">
+				  <div class="card-header text-center bg-success mb-3">
 				    <h2>Compras Realizadas</h2>
 				  </div>
 				  <div class="card-body">
