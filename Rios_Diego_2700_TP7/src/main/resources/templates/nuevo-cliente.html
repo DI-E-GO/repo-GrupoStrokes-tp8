@@ -19,7 +19,7 @@
 							<h1 class="text-center pt-3 pb-3">Nuevo Cliente</h1>
 							<div class="row g-3 align-items-center">
 								<div class="col-4 text-end">
-									<label for="inputId" class="col-form-label">ID</label>
+									<label for="inputId" class="col-form-label">ID Cliente</label>
 								</div>
 								<div class="col-8">
 									<input type="number" id="inputId" class="form-control"
@@ -31,10 +31,16 @@
 								</div>
 								<div class="col-8">
 									<select class="form-select" th:field="*{tipoDocumento}">
+										<option selected value="">Seleccione una opción</option>
 										<option value="dni">Documento Nacional de Identidad</option>
 										<option value="pasaporte">Pasaporte</option>
 									</select>
 								</div>
+								<!-- Mensaje Validador -->
+								<div class="row justify-content-end">
+									<div class="col-8 form-text text-danger" th:if="${#fields.hasErrors('tipoDocumento')}" th:errors="*{tipoDocumento}"></div>
+								</div>
+								
 								<div class="col-4 text-end">
 									<label for="inputNum" class="col-form-label">Numero Documento</label>
 								</div>
@@ -42,6 +48,11 @@
 									<input type="number" id="inputNum" class="form-control"
 										th:field="*{nroDocumento}" required>
 								</div>
+								<!-- Mensaje Validador -->
+								<div class="row justify-content-end">
+									<div class="col-8 form-text text-danger" th:if="${#fields.hasErrors('nroDocumento')}" th:errors="*{nroDocumento}"></div>
+								</div>
+								
 								<div class="col-4 text-end">
 									<label for="inputNombre" class="col-form-label">Nombre
 										y Apellido</label>
@@ -50,14 +61,24 @@
 									<input type="text" id="inputNombre" class="form-control"
 										th:field="*{nombreApellido}">
 								</div>
+								<!-- Mensaje Validador -->
+								<div class="row justify-content-end">
+									<div class="col-8 form-text text-danger" th:if="${#fields.hasErrors('nombreApellido')}" th:errors="*{nombreApellido}"></div>
+								</div>
+								
 								<div class="col-4 text-end">
 									<label for="inputEmail" class="col-form-label">Correo
 										Electrónico</label>
 								</div>
 								<div class="col-8">
-									<input type="email" id="inputEmail" class="form-control"
+									<input type="text" id="inputEmail" class="form-control"
 										th:field="*{email}">
 								</div>
+								<!-- Mensaje Validador -->
+								<div class="row justify-content-end">
+									<div class="col-8 form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+								</div>
+								
 								<div class="col-4 text-end">
 									<label for="inputPassword" class="col-form-label">Contraseña</label>
 								</div>
@@ -65,6 +86,11 @@
 									<input type="password" id="inputPassword" class="form-control"
 										th:field="*{password}">
 								</div>
+								<!-- Mensaje Validador -->
+								<div class="row justify-content-end">
+									<div class="col-8 form-text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+								</div>
+								
 								<div class="col-4 text-end">
 									<label for="inputFechaNac" class="col-form-label">Fecha
 										de Nacimiento</label>
@@ -73,6 +99,11 @@
 									<input type="date" id="inputFechaNac" class="form-control"
 										th:field="*{fechaNacimiento}">
 								</div>
+								<!-- Mensaje Validador -->
+								<div class="row justify-content-end">
+									<div class="col-8 form-text text-danger" th:if="${#fields.hasErrors('fechaNacimiento')}" th:errors="*{fechaNacimiento}"></div>
+								</div>
+								
 								<div class="col-4 text-end">
 									<label for="inputCodArea" class="col-form-label">Código
 										de Area</label>
@@ -81,6 +112,11 @@
 									<input type="number" id="inputCodArea" class="form-control"
 										th:field="*{codigoAreaTelefono}">
 								</div>
+								<!-- Mensaje Validador -->
+								<div class="row justify-content-end">
+									<div class="col-8 form-text text-danger" th:if="${#fields.hasErrors('codigoAreaTelefono')}" th:errors="*{codigoAreaTelefono}"></div>
+								</div>
+								
 								<div class="col-4 text-end">
 									<label for="inputNroTelefono" class="col-form-label">Número
 										de Teléfono</label>
@@ -89,6 +125,11 @@
 									<input type="number" id="inputNroTelefono" class="form-control"
 										th:field="*{nroTelefono}">
 								</div>
+								<!-- Mensaje Validador -->
+								<div class="row justify-content-end">
+									<div class="col-8 form-text text-danger" th:if="${#fields.hasErrors('nroTelefono')}" th:errors="*{nroTelefono}"></div>
+								</div>
+								
 								<div class="col-4 text-end">
 									<label for="inputFechaUltCompre" class="col-form-label">Fecha
 										Última Compra</label>
@@ -96,6 +137,10 @@
 								<div class="col-8">
 									<input type="date" id="inputFechaUltCompra"
 										class="form-control" th:field="*{fechaUltimaCompra}">
+								</div>
+								<!-- Mensaje Validador -->
+								<div class="row justify-content-end">
+									<div class="col-8 form-text text-danger" th:if="${#fields.hasErrors('fechaUltimaCompra')}" th:errors="*{fechaUltimaCompra}"></div>
 								</div>
 							</div>
 							<h2 class="text-center pt-3 pb-3">Datos de Cuenta</h2>
@@ -114,6 +159,11 @@
 									<input type="number" id="inputSaldo"
 										class="form-control" th:field="*{cuenta.saldo}">
 								</div>
+								<!-- Mensaje Validador -->
+								<div class="row justify-content-end">
+									<div class="col-8 form-text text-danger" th:if="${#fields.hasErrors('cuenta.saldo')}" th:errors="*{cuenta.saldo}"></div>
+								</div>
+								
 								<div class="col-4 text-end">
 									<label for="inputFechaCrea" class="col-form-label">Fecha de Creación</label>
 								</div>
@@ -121,15 +171,24 @@
 									<input type="date" id="inputFechaCrea"
 										class="form-control" th:field="*{cuenta.fechaCreacion}">
 								</div>
+								<!-- Mensaje Validador -->
+								<div class="row justify-content-end">
+									<div class="col-8 form-text text-danger" th:if="${#fields.hasErrors('cuenta.fechaCreacion')}" th:errors="*{cuenta.fechaCreacion}"></div>
+								</div>
+								
 								<div class="col-4 text-end">
 									<label for="inputIdCompra" class="col-form-label">Estado de Cuenta</label>
 								</div>
 								<div class="col-8">
 									<select class="form-select" id="estadoCuenta" th:field="*{cuenta.estado}">
-							     	<option selected value="">Seleccione una opción</option>
-									<option value="activa">Activa</option>
-									<option value="inactiva">Inactiva</option>
-							     </select>
+							     		<option selected value="">Seleccione una opción</option>
+										<option value="activa">Activa</option>
+										<option value="inactiva">Inactiva</option>
+							     	</select>
+								</div>
+								<!-- Mensaje Validador -->
+								<div class="row justify-content-end">
+									<div class="col-8 form-text text-danger" th:if="${#fields.hasErrors('cuenta.estado')}" th:errors="*{cuenta.estado}"></div>
 								</div>
 							</div>
 							<div class="d-grid gap-2 mt-3">

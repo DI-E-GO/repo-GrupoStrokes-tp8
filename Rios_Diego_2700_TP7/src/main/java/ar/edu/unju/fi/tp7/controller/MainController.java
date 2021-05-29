@@ -4,10 +4,13 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,13 +43,18 @@ public class MainController {
 		return "nuevo-cliente";
 	}
 	@PostMapping("/cliente/guardar")
-	public String proccesFormCliente(Model model, @ModelAttribute("cliente") Cliente unCliente) {
-		long edad = ChronoUnit.YEARS.between(unCliente.getFechaNacimiento(), LocalDate.now());
-		unCliente.setEdad((int)edad);
-		clienteService.addCliente(unCliente);
-		model.addAttribute(clienteService.getCliente());
-		this.getNuevoClientePage(model);
-		return "resultado-cliente";
+	public ModelAndView proccesFormCliente(@Valid @ModelAttribute("cliente") Cliente unCliente, BindingResult resultadoValidacion) {
+		ModelAndView modelView;
+		if (resultadoValidacion.hasErrors()) {
+			modelView = new ModelAndView("nuevo-cliente");
+			return modelView;
+		} else {
+			modelView = new ModelAndView("resultado-cliente");
+			long edad = ChronoUnit.YEARS.between(unCliente.getFechaNacimiento(), LocalDate.now());
+			unCliente.setEdad((int)edad);
+			clienteService.addCliente(unCliente);
+			return modelView;
+		}
 	}
 	@GetMapping("/cliente/listado")
 	public ModelAndView getClientesPage() {
@@ -68,8 +76,11 @@ public class MainController {
 		clienteService.eliminarCliente(id);
 		return "redirect:/cliente/listado";
 	}
+	
+	
+	
 	/*
-	 * 
+	 * Producto Controller
 	 */
 	@GetMapping("/producto/nuevo")
 	public String getNuevoPage(Model model) {
@@ -78,9 +89,16 @@ public class MainController {
 	}
 	
 	@PostMapping("/producto/guardar")
-	public String proccesForm(@ModelAttribute("producto") Producto unProducto) {
-		productoService.addProducto(unProducto);
-		return "resultado-producto";
+	public ModelAndView proccesForm(@Valid @ModelAttribute("producto") Producto unProducto, BindingResult resultadoValidacion) {
+		ModelAndView modelView;
+		if (resultadoValidacion.hasErrors()) {
+			modelView = new ModelAndView("nuevo-producto");
+			return modelView;
+		} else {
+			modelView = new ModelAndView("resultado-producto");
+			productoService.addProducto(unProducto);
+			return modelView;
+		}
 	}
 	
 	@GetMapping("/producto/ultimo")

@@ -13,6 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
@@ -29,11 +32,17 @@ public class Cuenta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
+	
+	@Max(value = 25000, message = "El valor maximo es de 25000 pesos")
 	@Column(name = "saldo")
 	private double saldo;
+	
+	@NotNull(message = "Seleccione una fecha de creacion de la cuenta")
 	@Column(name = "fecha_creacion")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaCreacion;
+	
+	@NotEmpty(message = "Ingrese el estado de su cuenta ACTIVA/INACTIVA")
 	@Column(name = "estado")
 	private String estado;
 	

@@ -17,6 +17,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -31,33 +38,59 @@ import org.springframework.stereotype.Component;
 @Table(name = "CLIENTES")
 @Component("unCliente")
 public class Cliente {
+	@NotEmpty(message = "Seleccione tipo de Documento")
 	@Column(name = "tipo_documento")
 	private String tipoDocumento;
+	
+	@Min(value = 9999999, message = "Debe Ingresar numero de documento valido")
+	@Max(value = 99999999, message = "Debe Ingresar numero de documento valido")
 	@Column(name = "nro_documento")
 	private int nroDocumento;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
+	
+	@Size(min = 2, max = 120, message = "Ingrese desde 2 a 120 caracteres")
+	@NotEmpty(message = "Ingrese su Nombre/s y su Apellido/s")
 	@Column(name = "nombre_apellido")
 	private String nombreApellido;
+	
+	@NotEmpty(message = "Agregue un correo electronico personal")
+	@Email(message = "Formato de e-mail no valido, por ej: example@email.com")
 	@Column(name = "email")
 	private String email;
+	
+	@NotNull(message = "Ingrese una contraseña")
+	@Size(min = 4, max = 20, message = "Ingrese una contraseña desde 4 a 20 caracteres")
 	@Column(name = "password")
 	private String password;
+	
+	@NotNull(message = "Seleccione su fecha de nacimiento")
 	@Column(name = "fecha_nacimiento")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaNacimiento;
+
 	@Column(name = "edad")
 	private int edad;
+	
+	@Max(value = 9999, message = "Codigo de area incorrecto, debe ser menor a 5 digitos")
+	@Min(value = 1, message = "Codigo de area incorrecto, debe ser mayor a 1 digitos")
 	@Column(name = "cod_area_telefono")
 	private int codigoAreaTelefono;
+	
+	@Max(value = 99999999, message = "Numero telefonico incorrecto, debe ser menor a 8 digitos")
+	@Min(value = 0, message = "Numero telefonico incorrecto, debe ser mayor a 5 digitos")
 	@Column(name = "nro_telefono")
 	private int nroTelefono;
+	
+	@NotNull(message = "Seleccione una fecha de la ultima compra")
 	@Column(name = "fecha_ultima_compra")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaUltimaCompra;
 	
+	@Valid
 	@Autowired
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cuenta_id")

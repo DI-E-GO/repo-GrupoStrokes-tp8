@@ -9,6 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
@@ -24,12 +28,24 @@ public class Producto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "codigo")
 	private Long codigo;
+	
+	@NotEmpty(message = "Ingrese el nombre del producto")
+	@Size(min = 4, max = 50, message = "El nombre debe tener entre 4 y 50 caracteres")
 	@Column(name = "nombre_producto")
 	private String nombre;
+	
+	@NotNull(message = "Ingrese el precio del producto")
+	@Min(value = 1, message = "No se permiten numeros negativos o cero")
 	@Column(name = "precio")
 	private double precio;
+	
+	@NotEmpty(message = "Ingrese la marca del producto")
+	@Size(min = 2, max = 50, message = "Debe ingresar el nombre de la marca de 2 a 50 caracteres")
 	@Column(name = "marca")
 	private String marca;
+	
+	@NotNull(message = "Ingrese numero de stock")
+	@Min(value = 0, message = "No se permiten numeros negativos")
 	@Column(name = "stock")
 	private int stock;
 	
