@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,30 +34,32 @@ public class CompraController {
 	List<Producto> productos = new ArrayList<>();
 	
 	@GetMapping("/compra/nuevo")
-	public ModelAndView getNuevaCompraPage(Model model) {
+	public String getNuevaCompraPage(Model model) {
 		this.productos=productoService.listaProductos();
 		model.addAttribute(compraService.getCompra());
-		ModelAndView modelo = new ModelAndView("nueva-compra");
-		  modelo.addObject("productos", productos);
-		 
-		return modelo;
+		model.addAttribute("productos", productos);
+		return "nueva-compra";
 	}
 	
 	@PostMapping("/compra/guardar")
-	public String proccesFormCompra(Model model, @ModelAttribute("compra") Compra unaCompra) {
-		Producto aux = new Producto();
-		for (Producto producto : productos) {
-			if (unaCompra.getProducto().getCodigo()==producto.getCodigo()) {
-				aux=producto;
+	public ModelAndView proccesFormCompra(Model model, @Valid @ModelAttribute("compra") Compra unaCompra, BindingResult resultadoValidacion) {
+		ModelAndView modelView;
+		if (resultadoValidacion.hasErrors()) {
+			model.addAttribute("productos", productoService.listaProductos());
+			modelView = new ModelAndView("nueva-compra");
+			return modelView;
+		} else {
+			modelView = new ModelAndView("resultado-compra");
+			Producto aux = new Producto();
+			for (Producto producto : productos) {
+				if (unaCompra.getProducto().getCodigo()==producto.getCodigo()) {
+					aux=producto;
+				}
 			}
+			unaCompra.setProducto(aux);
+			compraService.addCompra(unaCompra);
+			return modelView;
 		}
-		unaCompra.setProducto(aux);
-		compraService.addCompra(unaCompra);
-		/*
-		 * model.addAttribute(compraService.getCompra());
-		 * this.getNuevaCompraPage(model);
-		 */
-		return "resultado-compra";
 	}
 	
 	@GetMapping("/compra/lista")

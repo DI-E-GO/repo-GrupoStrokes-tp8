@@ -33,13 +33,23 @@
 										<option th:each="prod : ${productos}" th:value="${prod.codigo}" th:text="${prod.nombre}"></option>
 									</select>
 								</div>
+								<!-- Mensaje Validador -->
+								<div class="row justify-content-end">
+									<div class="col-8 form-text text-danger" th:if="${#fields.hasErrors('producto.codigo')}" th:errors="*{producto.codigo}"></div>
+								</div>
+								
 								<div class="col-4 text-end">
 									<label for="inputCantidad" class="col-form-label">Cantidad</label>
 								</div>
 								<div class="col-8">
 									<input type="number" id="inputCantidad" class="form-control"
-										th:field="*{cantidad}" required>
+										th:field="*{cantidad}" th:name="cantidad">
 								</div>
+								<!-- Mensaje Validador -->
+								<div class="row justify-content-end">
+									<div class="col-8 form-text text-danger" th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}"></div>
+								</div>
+								
 								<div class="col-4 text-end">
 									<label for="inputTotal" class="col-form-label">Total</label>
 								</div>
@@ -47,6 +57,11 @@
 									<input type="number" id="inputTotal" class="form-control"
 										th:field="*{total}">
 								</div>
+								<!-- Mensaje Validador -->
+								<div class="row justify-content-end">
+									<div class="col-8 form-text text-danger" th:if="${#fields.hasErrors('total')}" th:errors="*{total}"></div>
+								</div>
+								
 							</div>
 							<div class="d-grid gap-2 mt-3">
 								<input class="btn btn-outline-success" type="submit" id="liveToastBtn" value="Guardar">

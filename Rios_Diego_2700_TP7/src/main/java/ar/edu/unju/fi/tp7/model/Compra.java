@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Component;
 
@@ -25,10 +27,16 @@ public class Compra {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
+	
+	@NotNull(message = "Seleccione un producto")
 	@ManyToOne
 	private Producto producto;
+	
+	@Min(value = 1, message = "Ingrese cantidad mayor a cero")
 	@Column(name = "cantidad")
 	private int cantidad;
+	
+	@Min(value = 1, message = "La suma total no debe ser un numero negativo o valor cero")
 	@Column(name = "total")
 	private double total;
 	
