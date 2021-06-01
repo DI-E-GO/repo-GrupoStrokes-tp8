@@ -10,8 +10,8 @@ public class RiosDiego2700Tp61Application {
 		SpringApplication.run(RiosDiego2700Tp61Application.class, args);
 		/*
 		 ******INTEGRANTES******
-		 *Cristian Trorrejón
-		 *Diego Ríos
+		 *Cristian Torrejón  LU: 3305
+		 *Diego Ríos  LU: 2700
 		 */
 	}
 
