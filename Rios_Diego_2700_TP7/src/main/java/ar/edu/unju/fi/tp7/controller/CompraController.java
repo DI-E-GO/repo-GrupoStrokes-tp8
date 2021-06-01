@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.fi.tp7.model.Compra;
@@ -57,17 +58,17 @@ public class CompraController {
 				}
 			}
 			unaCompra.setProducto(aux);
+			unaCompra.setTotal(unaCompra.getCantidad()*unaCompra.getProducto().getPrecio());
 			compraService.addCompra(unaCompra);
 			return modelView;
 		}
 	}
 	
 	@GetMapping("/compra/lista")
-	public ModelAndView getListaComprasPage() {
-		ModelAndView modelView = new ModelAndView("listacompras");
-		modelView.addObject("compras", compraService.getCompras());
-		
-		return modelView;
+	public String getListaComprasPage(Model model) {
+		model.addAttribute("compra", compraService.getCompra());
+		model.addAttribute("compras", compraService.getCompras());
+		return "listacompras";
 	}
 	
 	@GetMapping("/compra/editar/{id}")
@@ -84,5 +85,12 @@ public class CompraController {
 	public String borrarCompra(@PathVariable Long id, Model model) {
 		compraService.eliminarCompra(id);
 		return "redirect:/compra/lista";
+	}
+	
+	@GetMapping("/compra/busqueda")
+	public String getComprasFiltradas(@RequestParam(name="total") double total, Model model, @ModelAttribute(name="compra")Compra compra) {
+		model.addAttribute("compra",compraService.getCompra());
+		model.addAttribute("compras", compraService.buscarCompras(compra.getProducto().getNombre(), total));
+		return "listacompras";
 	}
 }
