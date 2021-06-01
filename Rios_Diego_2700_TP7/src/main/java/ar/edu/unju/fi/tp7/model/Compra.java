@@ -36,7 +36,7 @@ public class Compra {
 	@Column(name = "cantidad")
 	private int cantidad;
 	
-	@Min(value = 1, message = "La suma total no debe ser un numero negativo o valor cero")
+	@Min(value = 0, message = "La suma total no debe ser un numero negativo")
 	@Column(name = "total")
 	private double total;
 	

@@ -58,6 +58,7 @@ public class CompraController {
 				}
 			}
 			unaCompra.setProducto(aux);
+			unaCompra.setTotal(unaCompra.getCantidad()*unaCompra.getProducto().getPrecio());
 			compraService.addCompra(unaCompra);
 			return modelView;
 		}

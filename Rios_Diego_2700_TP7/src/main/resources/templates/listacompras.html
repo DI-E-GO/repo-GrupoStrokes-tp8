@@ -16,7 +16,7 @@
 				</div>
 				
 				<div class="card">
-				  <div class="card-header text-center bg-success mb-3">
+				  <div class="card-header text-white text-center bg-success">
 				    <h2>Busqueda de Compra</h2>
 				  </div>
 				  <div class="card-body">
@@ -39,15 +39,17 @@
 				</div>
 				<br>
 				<div class="card">
-				  <div class="card-header text-center bg-success mb-3">
+				  <div class="card-header text-white text-center bg-success mb-3">
 				    <h2>Compras Realizadas</h2>
 				  </div>
 				  <div class="card-body">
-				     	<table class="table table-striped table-responsive table-bordered">
-						  <thead class=" bg-secondary">
+				     	<table class="text-center table table-sm table-striped table-responsive table-bordered">
+						  <thead class="text-white bg-secondary">
 						    <tr>
 						      <th scope="col">ID</th>
-						      <th scope="col">Producto</th>
+						      <th scope="col">Nombre Producto</th>
+						      <th scope="col">Precio Producto</th>
+						      <th scope="col">Marca Producto</th>
 						      <th scope="col">Cantidad</th>
 						      <th scope="col">Total</th>
 						      <th scope="col">Acciones</th>
@@ -56,7 +58,9 @@
 						  <tbody>
 						    <tr th:each="comp : ${compras}">
 						     	<td th:text="${comp.id}"></td>
-								<td th:text="${comp.producto}"></td>
+								<td th:text="${comp.producto.nombre}"></td>
+								<td th:text="${comp.producto.precio}"></td>
+								<td th:text="${comp.producto.marca}"></td>
 								<td th:text="${comp.cantidad}"></td>
 								<td th:text="'$ '+ ${comp.total}"></td>
 								<td>
