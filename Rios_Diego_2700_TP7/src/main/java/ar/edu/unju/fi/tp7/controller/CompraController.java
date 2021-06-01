@@ -64,11 +64,10 @@ public class CompraController {
 	}
 	
 	@GetMapping("/compra/lista")
-	public ModelAndView getListaComprasPage() {
-		ModelAndView modelView = new ModelAndView("listacompras");
-		modelView.addObject("compras", compraService.getCompras());
-		modelView.addObject("compra", compraService.getCompra());
-		return modelView;
+	public String getListaComprasPage(Model model) {
+		model.addAttribute("compra", compraService.getCompra());
+		model.addAttribute("compras", compraService.getCompras());
+		return "listacompras";
 	}
 	
 	@GetMapping("/compra/editar/{id}")
@@ -88,9 +87,9 @@ public class CompraController {
 	}
 	
 	@GetMapping("/compra/busqueda")
-	public String getComprasFiltradas(@RequestParam(name="nombre") String nombre , @RequestParam(name="total") double total, Model model, @ModelAttribute(name="compra")Compra compra) {
+	public String getComprasFiltradas(@RequestParam(name="total") double total, Model model, @ModelAttribute(name="compra")Compra compra) {
 		model.addAttribute("compra",compraService.getCompra());
-		model.addAttribute("compras", compraService.buscarCompras(nombre, total));
-		return "redirect:/listacompras";
+		model.addAttribute("compras", compraService.buscarCompras(compra.getProducto().getNombre(), total));
+		return "listacompras";
 	}
 }

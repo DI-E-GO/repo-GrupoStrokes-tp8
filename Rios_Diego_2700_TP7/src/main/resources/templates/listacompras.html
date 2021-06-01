@@ -23,12 +23,12 @@
 				    <form th:action="@{/compra/busqueda}" th:object="${compra}" th:method="GET">
 				    	   <div class="row g-3">
 							    <div class="col-md-4">
-							      <label for="nproducto">Nombre del Producto</label>
-							      <input type="text" class="form-control" id="nproducto" th:field="*{producto.nombre}">
+							      <label for="nombre">Nombre del Producto</label>
+							      <input type="text" class="form-control" name="nombre" id="nombre" th:field="*{producto.nombre}">
 							    </div>
 							    <div class="col-md-4">
-							      <label for="monto">Monto Superior a</label>
-							      <input type="number" class="form-control" id="monto" th:field="*{total}">
+							      <label for="total">Monto Superior a</label>
+							      <input type="number" class="form-control" name="total" id="total" th:field="*{total}">
 							    </div>
 							   <div class="col-md-2">
 								   <button type="submit" class="btn btn-primary mt-4">Buscar</button>
